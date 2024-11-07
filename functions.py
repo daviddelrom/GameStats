@@ -7,15 +7,15 @@ def add_player():
     newplayer = Player(player_name, player_abrv)
     return newplayer
 
-def add_game(players):
+def add_game(players, game_id):
     print("Vamos a crear una partida")
-    date = ask_date()
+    date = datetime.now()
     results = ask_results(players)
     want_rules = input("Deseas especificar reglas? (s/n)").lower()
     if want_rules == 's':
         rules = ask_rules()
-        game = Game(results, date, rules)
-    else: game = Game(results, date)
+        game = Game(results, game_id, date, rules)
+    else: game = Game(results, game_id, date)
     return game
 
 
