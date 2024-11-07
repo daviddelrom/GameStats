@@ -1,12 +1,17 @@
 from functions import add_player, add_game
 
 def main():
-    print("POC del gestor de partidas DDR")
+    njugadores = int(input("Cuantos jugadores: "))
     jugadores = []
-    jugadores.append(add_player())
+    for i in range(njugadores):
+        jugadores.append(add_player())
     games = []
-    games.append(add_game())
-    print(jugadores[0])
-    print(games[0])
+    npartidas = int(input("Cuantas partidas: "))
+    for n in range(npartidas):
+        games.append(add_game(jugadores))
+    for i in range(njugadores):
+        print(jugadores[i])
+    for i in range(npartidas):
+        print(games[i])
 if __name__ == "__main__":
     main()
