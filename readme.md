@@ -4,4 +4,4 @@ Gamestats is a basic tool for generating rankings for Board Games sessions of th
 
 Actually it is in an early development stage
 ## Status
-Actually only console mode without data saving is enabled, bbdd.py is started but non functional
+Actually only console mode without data saving is enabled, bbdd.py is created and players stored but non functional
