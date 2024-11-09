@@ -13,7 +13,10 @@ def main():
     games = []
     npartidas = int(input("Cuantas partidas: "))
     for n in range(npartidas):
-        games.append(add_game(jugadores, n))
+        tempgame = add_game(jugadores, n)
+        games.append(tempgame)
+        db.insert_game(tempgame)
+        db.insert_results(tempgame)
     for i in range(njugadores):
         print(jugadores[i])
     for i in range(npartidas):

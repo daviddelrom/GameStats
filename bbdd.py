@@ -30,7 +30,7 @@ class dbmmanager:
                 # Crear la tabla GAMES
             self.cursor.execute('''
                 CREATE TABLE IF NOT EXISTS GAMES (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    id INTEGER PRIMARY KEY,
                     fecha TEXT,
                     rules TEXT,
                     nplayers INTEGER
@@ -51,7 +51,7 @@ class dbmmanager:
                 ''')
 
             self.conn.commit()
-        except sqlite3.Error as e: print("Error")
+        except sqlite3.Error as e: print("Error1")
         finally: self.dbclose()
     def insert_player(self, player):
         try:
@@ -61,24 +61,26 @@ class dbmmanager:
                 VALUES (?, ?)
             ''', (player.name, player.abrv))
             self.conn.commit()
-        except sqlite3.Error as e: print("Error")
+        except sqlite3.Error as e: print("Error2")
         finally: self.dbclose()
     def insert_game(self, game):
         try:
             self.dbstart()
             self.cursor.execute('''
-            INSERT INTO GAMES (fecha, rules, nplayers)
-            VALUES (?,?,?)
-            ''', (game.date, game.rules, game.nplayers))
+            INSERT INTO GAMES (fecha, rules, nplayers, id)
+            VALUES (?,?,?,?)
+            ''', (game.date, game.rules, game.nplayers, game.game_id))
             self.conn.commit()
-        except sqlite3.Error as e: print("Error")
+        except sqlite3.Error as e: print("Error3")
         finally: self.dbclose()
-    def insert_results(self, results):
+    def insert_results(self, game):
         try:
             self.dbstart()
-            self.cursor.execute('''
-            
-            ''', (game.date, game.rules, game.nplayers))
+            for result in game.results:
+                self.cursor.execute('''
+                INSERT INTO RESULTS (game_id, player_name, pos, house)
+                VALUES (?,?,?,?)
+                ''',(game.game_id, result.player.name, result.pos, result.house.value))
             self.conn.commit()
-        except sqlite3.Error as e: print("Error")
+        except sqlite3.Error as e: print(f"Error al insertar resultados en la base de datos: {e}")
         finally: self.dbclose()
