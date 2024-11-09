@@ -16,7 +16,8 @@ class dbmmanager:
             self.conn.close()
             self.cursor = None
             self.conn = None
-    def create_players_table(self):
+    def create_tables(self):
+        self.dbstart()
         try:
             self.cursor.execute('''
                 CREATE TABLE IF NOT EXISTS PLAYERS (
@@ -52,29 +53,32 @@ class dbmmanager:
             self.conn.commit()
         except sqlite3.Error as e: print("Error")
         finally: self.dbclose()
-    def insert_player(player):
+    def insert_player(self, player):
         try:
             self.dbstart()
             self.cursor.execute('''
                 INSERT INTO PLAYERS (name, abrv)
                 VALUES (?, ?)
             ''', (player.name, player.abrv))
+            self.conn.commit()
         except sqlite3.Error as e: print("Error")
         finally: self.dbclose()
-    def insert_game(game):
+    def insert_game(self, game):
         try:
             self.dbstart()
             self.cursor.execute('''
             INSERT INTO GAMES (fecha, rules, nplayers)
             VALUES (?,?,?)
             ''', (game.date, game.rules, game.nplayers))
+            self.conn.commit()
         except sqlite3.Error as e: print("Error")
         finally: self.dbclose()
-    def insert_results(results):
+    def insert_results(self, results):
         try:
             self.dbstart()
             self.cursor.execute('''
             
             ''', (game.date, game.rules, game.nplayers))
+            self.conn.commit()
         except sqlite3.Error as e: print("Error")
         finally: self.dbclose()

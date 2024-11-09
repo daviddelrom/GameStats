@@ -1,11 +1,15 @@
 from functions import add_player, add_game
 from classes import Ranking
-
+from bbdd import dbmmanager
 def main():
     njugadores = int(input("Cuantos jugadores: "))
     jugadores = []
+    db = dbmmanager("agot.db")
+    db.create_tables()
     for i in range(njugadores):
-        jugadores.append(add_player())
+        templayer = add_player()
+        jugadores.append(templayer)
+        db.insert_player(templayer)
     games = []
     npartidas = int(input("Cuantas partidas: "))
     for n in range(npartidas):
