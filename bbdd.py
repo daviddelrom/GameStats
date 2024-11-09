@@ -1,5 +1,5 @@
 import sqlite3
-from classes import Game, Player, ResultsClass
+#from classes import Game, Player, ResultsClass
 
 class dbmmanager:
     def __init__(self, db_name):
