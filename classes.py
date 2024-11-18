@@ -154,7 +154,22 @@ class Menu:
         if option == 'a':
             player = Player.add_player()
             db.insert_player(player)
-    #   else if option == 'b':
+        elif option == 'b':
+            players = db.list_players()
+            for player in players:
+                print(player)
+            while True:
+                elim = input("Introduce abreviatura de jugador a eliminar")
+                found = False
+                for player in players:
+                    if elim.upper() == player.abrv:
+                        db.delete_player(player.abrv)
+                        print("Jugador eliminado")
+                        found = True
+                        break
+                if not found:
+                    print("No exixte el jugador, prueba de nuevo")
+                else: break
     #  else if option == 'c':
     #  else if option == 'd':
     # else if option == 'e':

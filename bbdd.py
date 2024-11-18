@@ -1,5 +1,5 @@
 import sqlite3
-#from classes import Game, Player, ResultsClass
+from sql_queries import SHOW_PLAYERS_LIST, DELETE_PLAYER
 
 class dbmmanager:
     def __init__(self, db_name):
@@ -84,3 +84,27 @@ class dbmmanager:
             self.conn.commit()
         except sqlite3.Error as e: print(f"Error al insertar resultados en la base de datos: {e}")
         finally: self.dbclose()
+
+    def list_players(self):
+        from classes import Player
+        players = []
+        try:
+            self.dbstart()
+            self.cursor.execute(SHOW_PLAYERS_LIST)
+            rows = self.cursor.fetchall()
+            for row in rows:
+                player = Player(*row)
+                players.append(player)
+        except sqlite3.Error as e: print(f"Error al insertar resultados en la base de datos: {e}")
+        finally: 
+            self.dbclose()
+        return players
+
+    def delete_player(self, abrv):
+        try:
+            self.dbstart()
+            self.cursor.execute(DELETE_PLAYER, (abrv, ))
+            self.conn.commit()
+        except sqlite3.Error as e: print(f"Error al eliminar jugador: {e}")
+        finally: 
+            self.dbclose()

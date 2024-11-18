@@ -1,0 +1,6 @@
+SHOW_PLAYERS_LIST = '''
+SELECT name, abrv FROM PLAYERS
+'''
+DELETE_PLAYER = '''
+DELETE FROM PLAYERS WHERE abrv = ?
+'''
